@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Cuenta Regresiva para Nuestro Bebé 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header {
+      margin-top: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #f06292;
+      font-size: 2.8rem;
+      margin-bottom: 0.2em;
+      text-shadow: 0 2px 10px #fff5;
+      letter-spacing: 1px;
+      animation: popin 1.5s;
+    }
+    @keyframes popin {
+      0% { transform: scale(0.7); opacity: 0; }
+      80% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    p.love-text {
+      font-size: 1.1rem;
+      color: #6d4c41;
+      margin: 0 auto 30px auto;
+      max-width: 420px;
+      line-height: 1.7;
+      background: rgba(255,255,255,0.55);
+      border-radius: 16px;
+      padding: 18px 25px;
+      box-shadow: 0 4px 18px #f8bbd0a0;
+      animation: fadeIn 2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .weeks-info {
+      font-size: 0.95rem;
+      color: #ad1457;
+      margin-bottom: 35px;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.35);
+      border-radius: 8px;
+      padding: 5px 18px;
+      display: inline-block;
+    }
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 30px 0;
+      animation: galFadeIn 2s;
+    }
+    @keyframes galFadeIn {
+      from { opacity: 0; transform: scale(0.8);}
+      to { opacity: 1; transform: scale(1);}
+    }
+    .galeria img {
+      width:100px;
+      height:100px;
+      object-fit:cover;
+      border-radius:10px;
+      cursor:pointer;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 18px #e5737390;
+      border: 4px solid #fff;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: #fff;
+    }
+    .galeria img:hover {
+      transform: scale(1.07) rotate(-2deg);
+      box-shadow: 0 8px 28px #ad1457cc;
+      border-color: #f06292;
+    }
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(238, 156, 167, 0.65);
+      align-items: center;
+      justify-content: center;
+      animation: fadeInBg 0.3s;
+    }
+    .modal-bg.active { display: flex; }
+    @keyframes fadeInBg {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px #ec407a60;
+      max-width: 90vw;
+      max-height: 85vh;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: popModal 0.4s;
+      position: relative;
+    }
+    @keyframes popModal {
+      from { transform: scale(0.85); opacity: 0;}
+      to   { transform: scale(1); opacity: 1;}
+    }
+    .modal-image {
+      width: 320px;
+      max-width: 80vw;
+      max-height: 50vh;
+      object-fit: cover;
+      border-radius: 18px 18px 0 0;
+      background: #eee;
+      margin-bottom: 0;
+    }
+    .modal-desc {
+      font-size: 1.08rem;
+      color: #ad1457;
+      background: #fff1f5;
+      padding: 22px 28px;
+      border-radius: 0 0 18px 18px;
+      text-align: center;
+      min-width: 250px;
+      font-style: italic;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 2px 10px #ea80fc30 inset;
+    }
+    .close-modal {
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      font-size: 1.7rem;
+      color: #f06292;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      z-index: 2;
+      opacity: 0.9;
+      transition: color 0.2s;
+    }
+    .close-modal:hover { color: #ad1457; }
+    .contador-container {
+      margin: 30px 0;
+      padding: 30px 20px 20px 20px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #ec407a40;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInUp 2s;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(70px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .contador {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .tiempo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #d81b60;
+      min-width: 78px;
+      background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+      padding: 16px 10px 7px 10px;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #ffebee80;
+      transition: box-shadow 0.4s;
+      animation: bounceIn 1.2s;
+    }
+    .tiempo-label {
+      font-size: 1rem;
+      color: #7b1fa2;
+      font-weight: 500;
+      margin-top: 7px;
+      text-shadow: 0 1px 5px #fff7;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      80% { transform: scale(1.1);}
+      100% { transform: scale(1); opacity: 1;}
+    }
+    .footer {
+      margin-top: 50px;
+      font-size: 1.1rem;
+      color: #8d6e63;
+      text-align: center;
+      opacity: 0.85;
+    }
+    .heart {
+      animation: heartbeat 1.4s infinite;
+      display: inline-block;
+      color: #e57373;
+      font-size: 1.7em;
+      margin: 0 6px;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1);}
+      10%, 30% { transform: scale(1.17);}
+      20%, 40% { transform: scale(0.95);}
+      50% { transform: scale(1);}
+    }
+    @media (max-width: 600px) {
+      .contador { gap: 10px;}
+      .tiempo { font-size: 1.4rem; min-width: 58px;}
+      .galeria img { width: 95px; height: 95px;}
+      .modal-image { width: 90vw; max-height: 40vh;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>¡Contando los días para conocerte, amor! 💖</h1>
+    <p class="love-text">
+      Este pequeño rincón es solo nuestro, para recordarnos todos los días la ilusión y felicidad que sentimos por la llegada de nuestro bebé. Cada segundo que pasa, ¡estamos más cerca de abrazar el regalo más grande de nuestro amor! <span class="heart">💕</span>
+    </p>
+    <span class="weeks-info" id="weeksInfo"></span>
+  </header>
+  
+  <!-- GALERÍA DE FOTOS DE PAREJA -->
+  <div class="galeria" id="galeria">
+    <img src='Mamr/sary2.png' style='width:100px; height:100px; object-fit:cover; border-radius:10px;' alt='Foto 1' title='El dia que nos conocimos, ¡allí empezó esta hermosa historia! 💑'>
+    <img src='Mamr/sary3.png' style='width:100px; height:100px; object-fit:cover; border-radius:10px;' alt='Foto 2' title='Un atardecer que nunca olvidaré, porque estabas a mi lado y fue nuestro primer paseo juntos mi muñequita , lo recuerdas ?¿'>
+    <img src='Mamr/sary1.png' style='width:100px; height:100px; object-fit:cover; border-radius:10px;' alt='Foto 3' title='Un dia muy especial porque presencie el primero de muchos de tus futuros logros y lo mejor va a ser que proximamnete no los vivires solos ya que . Pronto seremos tres. 🤰'>
+    <!-- Agrega más imágenes aquí si lo deseas -->
+  </div>
+  
+  <!-- MODAL PARA MOSTRAR IMÁGENES GRANDES -->
+  <div class="modal-bg" id="modalBg" tabindex="-1">
+    <div class="modal-content" id="modalContent">
+      <button class="close-modal" id="closeModal" title="Cerrar">&times;</button>
+      <img class="modal-image" id="modalImg" src="" alt="Foto de nosotros" />
+      <div class="modal-desc" id="modalDesc"></div>
+    </div>
+  </div>
+  
+  <main>
+    <div class="contador-container">
+      <div id="contador" class="contador">
+        <div class="tiempo">
+          <span id="dias">0</span>
+          <span class="tiempo-label">Días</span>
+        </div>
+        <div class="tiempo">
+          <span id="horas">0</span>
+          <span class="tiempo-label">Horas</span>
+        </div>
+        <div class="tiempo">
+          <span id="minutos">0</span>
+          <span class="tiempo-label">Min</span>
+        </div>
+        <div class="tiempo">
+          <span id="segundos">0</span>
+          <span class="tiempo-label">Seg</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="footer">
+    Siempre juntos, en cada paso de esta hermosa aventura. <span class="heart">❤️</span>
+  </div>
+  <script>
+    // Fecha de inicio FIJA (NO modificar) para que el 10 de junio de 2025 sean 6 semanas, 1 mes y 12 días
+    const fechaInicioEmbarazo = '2025-04-29';
+
+    // Descripciones para el modal, en el mismo orden que las imágenes
+    const descripciones = [
+      "El dia que nos conocimos, ¡allí empezó esta hermosa historia! 💑",
+      "Un atardecer que nunca olvidaré, porque estabas a mi lado y fue nuestro primer paseo juntos mi muñequita , lo recuerdas ?¿ 🌅",
+      "Un dia muy especial porque presencie el primero de muchos de tus futuros logros y lo mejor va a ser que proximamnete no los vivires solos ya que . Pronto seremos tres 🤰"
+    ];
+
+    function nowBogota() {
+      // Bogotá es UTC-5
+      const nowUTC = new Date();
+      const bogotaOffset = -5 * 60; // minutos
+      const localOffset = nowUTC.getTimezoneOffset(); // minutos
+      const diff = bogotaOffset - localOffset; // minutos
+      return new Date(nowUTC.getTime() + diff * 60 * 1000);
+    }
+
+    function calcularSemanasMesesDias() {
+      const fechaInicio = new Date(fechaInicioEmbarazo + "T00:00:00-05:00");
+      const ahora = nowBogota();
+      const msTranscurridos = ahora - fechaInicio;
+      const diasTranscurridos = Math.max(0, Math.floor(msTranscurridos / (1000 * 60 * 60 * 24)));
+      const semanas = Math.floor(diasTranscurridos / 7);
+      const semanasPorMes = 4.345;
+      const meses = Math.floor(semanas / semanasPorMes);
+      const semanasRestantes = semanas - (meses * semanasPorMes);
+      const diasRestantes = diasTranscurridos - (semanas * 7);
+      const diasDelMes = Math.round(semanasRestantes * 7 + diasRestantes);
+      return { semanas, meses, dias: diasDelMes };
+    }
+    function mostrarSemanasInfo() {
+      const { semanas, meses, dias } = calcularSemanasMesesDias();
+      document.getElementById('weeksInfo').textContent =
+        `(Actualmente llevamos ${semanas} semanas: ${meses} ${meses === 1 ? 'mes' : 'meses'} y ${dias} días)`;
+    }
+    mostrarSemanasInfo();
+    setInterval(mostrarSemanasInfo, 60 * 60 * 1000);
+
+    // --------- CONTADOR NACIMIENTO ---------
+    // Fecha estimada de parto: 40 semanas desde fechaInicioEmbarazo
+    const fechaParto = new Date(new Date(fechaInicioEmbarazo + "T00:00:00-05:00").getTime() + (40 * 7 * 24 * 60 * 60 * 1000));
+    function updateContador() {
+      const ahora = nowBogota();
+      let diferencia = fechaParto - ahora;
+      if (diferencia < 0) diferencia = 0;
+      const segundosTotales = Math.floor(diferencia / 1000);
+      const dias = Math.floor(segundosTotales / (3600 * 24));
+      const horas = Math.floor((segundosTotales % (3600 * 24)) / 3600);
+      const minutos = Math.floor((segundosTotales % 3600) / 60);
+      const segundos = segundosTotales % 60;
+      document.getElementById('dias').textContent = dias;
+      document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
+      document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
+      document.getElementById('segundos').textContent = segundos.toString().padStart(2, '0');
+    }
+    updateContador();
+    setInterval(updateContador, 1000);
+
+    // --------- MODAL PARA GALERÍA ---------
+    const galeriaDiv = document.getElementById('galeria');
+    const imagenes = galeriaDiv.querySelectorAll("img");
+    const modalBg = document.getElementById('modalBg');
+    const modalImg = document.getElementById('modalImg');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    imagenes.forEach((img, idx) => {
+      img.addEventListener('click', () => abrirModal(idx));
+      img.addEventListener('keydown', (e) => { if (e.key === "Enter") abrirModal(idx); });
+    });
+
+    function abrirModal(idx) {
+      modalImg.src = imagenes[idx].src.replace("w=200", "w=700");
+      modalDesc.textContent = descripciones[idx] || "";
+      modalBg.classList.add('active');
+      closeModalBtn.focus();
+    }
+    function cerrarModal() {
+      modalBg.classList.remove('active');
+      setTimeout(() => { modalImg.src = ""; modalDesc.textContent = ""; }, 200);
+    }
+    closeModalBtn.onclick = cerrarModal;
+    modalBg.onclick = function(e) {
+      if (e.target === modalBg) cerrarModal();
+    }
+    document.addEventListener('keydown', function(e){
+      if (modalBg.classList.contains('active') && (e.key === "Escape")) cerrarModal();
+    });
+  </script>
+</body>
+</html>
