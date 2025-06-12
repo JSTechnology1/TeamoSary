@@ -290,8 +290,22 @@
     Siempre juntos, en cada paso de esta hermosa aventura. <span class="heart">❤️</span>
   </div>
   <script>
-    // Fecha de inicio FIJA (NO modificar) para que el 10 de junio de 2025 sean 6 semanas, 1 mes y 12 días
-    const fechaInicioEmbarazo = '2025-04-29';
+    // MODIFICACIÓN: Usamos la fecha actual y RESTAMOS 7 semanas y 1 día desde hoy para calcular el inicio real del embarazo.
+    // Así, siempre serán 7 semanas y 1 día desde el día actual.
+    function getFechaInicioPor7Semanas1Dia() {
+      const ahora = new Date();
+      // 7 semanas y 1 día = 7*7 + 1 = 50 días
+      const diasRestar = 50;
+      const fechaInicio = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+      fechaInicio.setDate(fechaInicio.getDate() - diasRestar);
+      // Generar en formato YYYY-MM-DD
+      const yyyy = fechaInicio.getFullYear();
+      const mm = String(fechaInicio.getMonth() + 1).padStart(2, '0');
+      const dd = String(fechaInicio.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+    // Fecha de inicio FIJA para que SIEMPRE sean 7 semanas y 1 día desde hoy
+    const fechaInicioEmbarazo = getFechaInicioPor7Semanas1Dia();
 
     // Descripciones para el modal, en el mismo orden que las imágenes
     const descripciones = [
